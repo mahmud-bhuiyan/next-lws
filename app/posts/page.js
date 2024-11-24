@@ -1,3 +1,4 @@
+import Link from "next/link";
 import getAllPosts from "@/lib/getAllPosts";
 
 export const metadata = {
@@ -20,13 +21,17 @@ export default async function Posts() {
               key={post.id}
               className="p-8 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
             >
-              <h4 className="text-2xl font-bold text-gray-800 mb-2 hover:text-blue-600">
-                {post.title}
-              </h4>
-              <p className="text-gray-600 mb-4">{post.body}</p>
-              <div className="text-gray-500 text-sm">
-                <span>User ID: {post.userId}</span>
-              </div>
+              <Link href={`/posts/${post.id}`}>
+                <h4 className="text-2xl font-bold text-gray-800 mb-2 hover:text-blue-600 cursor-pointer">
+                  {post.title}
+                </h4>
+              </Link>
+              <p className="text-gray-600 mb-4">{post.body.substring(0, 100)}...</p>
+              <Link href={`/posts/${post.id}`}>
+                <button className="mt-4 text-blue-600 font-semibold hover:underline">
+                  Read More
+                </button>
+              </Link>
             </li>
           ))}
         </ul>
