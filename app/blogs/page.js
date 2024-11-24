@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { blogs } from "@/app/data/blogs";
 
+export const metadata = {
+  title: "Blogs | MRB",
+  description: "Blogs page",
+};
+
 export default function Blogs() {
   return (
     <main className="p-8 bg-gradient-to-r from-blue-50 via-blue-100 to-blue-50 min-h-screen">
