@@ -26,7 +26,9 @@ export default async function Posts() {
                   {post.title}
                 </h4>
               </Link>
-              <p className="text-gray-600 mb-4">{post.body.substring(0, 100)}...</p>
+              <p className="text-gray-600 mb-4">
+                {post.body.substring(0, 100)}...
+              </p>
               <Link href={`/posts/${post.id}`}>
                 <button className="mt-4 text-blue-600 font-semibold hover:underline">
                   Read More
@@ -38,4 +40,13 @@ export default async function Posts() {
       </div>
     </main>
   );
+}
+
+// Generate static params for dynamic routes
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }));
 }
