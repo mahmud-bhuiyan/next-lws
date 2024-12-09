@@ -1,11 +1,13 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import getPostById from "@/lib/getPostById";
+import PostComments from "@/app/components/PostComments";
 
 export async function generateMetadata({ params }) {
-  const postId = parseInt(params.id);
+  const post = await getPostById(parseInt(params.id));
   return {
-    title: `Post ${postId} | MRB`,
-    description: "Explore detailed insights on this post.",
+    title: `Post ${post.title} | MRB`,
+    description: post.body,
   };
 }
 
@@ -35,6 +37,16 @@ export default async function PostPage({ params }) {
         </div>
         <p className="text-gray-700 mb-6">{post.body}</p>
       </div>
+      {/* PostComments Component with Suspense */}
+      <Suspense
+        fallback={
+          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-6">
+            <p className="text-gray-600">Loading comments...</p>
+          </div>
+        }
+      >
+        <PostComments postId={postId} />
+      </Suspense>
     </main>
   );
 }
